@@ -26,8 +26,8 @@ print(74 * "-")
 print(colored("Isi Data Berikut!", "light_yellow").center(80))
 email = input(colored("Email Facebook\t\t: ", "light_yellow"))
 password = input(colored("Kata Sandi Facebook\t: ", "light_yellow"))
-link_group = input(colored("Link Grup Facebook\t: ", "light_yellow"))
-nama_admin = input(colored("Nama Admin Grup\t\t: ", "light_yellow"))
+link_group = input(colored("ID Grup Facebook\t: ", "light_yellow"))
+nama_admin = input(colored("ID Admin Grup\t\t: ", "light_yellow"))
 
 import sys
 import time

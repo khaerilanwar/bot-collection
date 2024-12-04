@@ -11,16 +11,16 @@ load_dotenv()
 email_fb = os.getenv('EMAIL_FB')
 password_fb = os.getenv('PASSWORD_FB')
 link_login = os.getenv('LINK_LOGIN')
-link_group = os.getenv('LINK_GROUP')
+# link_group = os.getenv('LINK_GROUP')
 
 # Options Chrome Browser
 options = webdriver.ChromeOptions()
-options.add_argument("--no-sandbox")
-options.add_argument("--disable-dev-shm-usage")
+# options.add_argument("--no-sandbox")
+# options.add_argument("--disable-dev-shm-usage")
 # options.add_argument("--headless=new")
 
 # Instance WebDriver Chrome
-driver = webdriver.Chrome("driver\chromedriver.exe", options=options)
+driver = webdriver.Chrome(options=options)
 
 # LOGIN KE AKUN  FACEBOOK
 driver.get(link_login)
@@ -35,44 +35,31 @@ button_login.click()
 
 time.sleep(5)
 
+# BUKA HALAMAN GROUP POSTINGAN ORANG
+link_group = f"https://web.facebook.com/groups/888792567828940/user/100054607266052"
+
 driver.get(link_group)
 time.sleep(3)
 
-# SCROLL HALAMAN GROUP FACEBOOK
-end_time = time.time() + 2
 body = driver.find_element(By.TAG_NAME, 'body')
-while time.time() < end_time:
-    body.send_keys(Keys.PAGE_DOWN)
-    time.sleep(1)
-    
+body.send_keys(Keys.PAGE_DOWN)
 time.sleep(3)
 
-# MENGAMBIL SEMUA POSTINGAN
-feed = driver.find_element(By.CSS_SELECTOR, 'div[role="feed"]')
-feed_posts = feed.find_elements(By.XPATH, './div')
+id_waktu_post = driver.find_element(By.CSS_SELECTOR, 'span[style="display: flex;"]').find_element(By.XPATH, '..').get_attribute("aria-labelledby")
 
-for post in feed_posts:
-    try:
-        # Mencari postingan dengan orang tertentu
-        profile_name = post.find_element(By.CSS_SELECTOR, 'div[data-ad-rendering-role="profile_name"]').text
-        print(profile_name)
+# waktu_post = driver.find_element(By.ID, id_waktu_post).text
+waktu_post = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, id_waktu_post))).text
+print(waktu_post)
 
-        # Tombol komentar postingan
-        # button_comment = post.find_element(By.CSS_SELECTOR, 'div[aria-label="Beri komentar"][role="button"]')
-        # button_comment.click()
+button_comment_first = driver.find_element(By.CSS_SELECTOR, 'div[aria-label="Beri komentar"][role="button"]')
+button_comment_first.click()
 
-        # Berpindah ke input komentar yang aktif
-        # input_comment = driver.switch_to.active_element
-        # input_comment.send_keys("Jasa CV Online Terbaik")
-        # input_comment.send_keys(Keys.SHIFT, Keys.ENTER)
-        # input_comment.send_keys("WhatsApp : 0821 3763 3527")
-        # input_comment.send_keys(Keys.ENTER)
+input_comment = driver.switch_to.active_element
+input_comment.send_keys("ini komentar otomatis")
+time.sleep(2)
+input_comment.send_keys(Keys.ENTER)
 
-        print("Komentar berhasil dikirim!")
-
-        # time.sleep(30)
-    except:
-        continue
-
+print("Berhasil posting komentar")
+time.sleep(10)
 driver.quit()
 print("Program berhasil dijalankan")
