@@ -5,12 +5,9 @@
 from utils import banner
 from termcolor import colored
 from datetime import datetime
-from locale import setlocale, LC_TIME
 
 banner("Bot Facebook", "light_red")
 
-# Menampilkan tanggal sekarang pakai bahasa Indonesia
-setlocale(LC_TIME, "id_ID")
 today = datetime.now()
 print(colored(today.strftime('%A, %d %B %Y'), "light_green").center(80))
 print(74 * "-")

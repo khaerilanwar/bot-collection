@@ -21,7 +21,7 @@ def show_spinner():
 opening()
 
 # Menerima inputan data
-print(colored("Isi Data Berikut!", "light_yellow").center(80))
+print(colored("Isi Data Berikut!", "light_yellow").center(65))
 email = input(colored("Email Facebook\t\t: ", "light_yellow"))
 password = input(colored("Kata Sandi Facebook\t: ", "light_yellow"))
 id_grup = input(colored("ID Grup Facebook\t: ", "light_yellow"))
@@ -50,25 +50,45 @@ try:
     WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.NAME, 'login'))).click()
     time.sleep(5)
 
-    # Memulai melakukan komentar
     link_post_grup_user = f"https://web.facebook.com/groups/{id_grup}/user/{id_admin}"
     driver.get(link_post_grup_user)
-    body = driver.find_element(By.TAG_NAME, 'body')
-    body.send_keys(Keys.PAGE_DOWN)
-    time.sleep(3)
-    WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, 'div[aria-label="Beri komentar"][role="button"]'))).click()
-    
-    input_comment = driver.switch_to.active_element
-    input_comment.send_keys(komentar)
-    input_comment.send_keys(Keys.ENTER)
-    
+    time.sleep(3)   
+
+    postingan_terakhir = driver.find_elements(By.CSS_SELECTOR, '.x1yztbdb.x1n2onr6.xh8yej3.x1ja2u2z')
+    isi_post_terakhir = postingan_terakhir[0].find_element(By.CSS_SELECTOR, 'div[data-ad-rendering-role="story_message"]').text
+
     # Hentikan spinner dan hapus loading
     done = True
     spinner_thread.join()
     sys.stdout.write('\r' + ' ' * 20 + '\r')  # Menghapus baris loading
     sys.stdout.flush()
 
-    print("Berhasil melakukan komentar!")
+    while True:
+        try:
+            postingan_terbaru = driver.find_elements(By.CSS_SELECTOR, '.x1yztbdb.x1n2onr6.xh8yej3.x1ja2u2z')
+            post_terbaru = postingan_terbaru[0]
+            isi_post_terbaru = post_terbaru.find_element(By.CSS_SELECTOR, 'div[data-ad-rendering-role="story_message"]').text
+            
+            if isi_post_terakhir == isi_post_terbaru:
+                driver.refresh()
+                print(colored("-- Refresh", "light_cyan"))
+                WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, '.x1yztbdb.x1n2onr6.xh8yej3.x1ja2u2z')))
+            else:
+                WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, 'div[aria-label="Beri komentar"][role="button"]'))).click()
+                
+                input_comment = driver.switch_to.active_element
+                input_comment.send_keys(komentar)
+                input_comment.send_keys(Keys.ENTER)
+
+                print("")
+                print(colored("Komentar Berhasil!", "light_green"))
+                print(colored("Komentar : ", "light_grey"), colored(komentar, "light_green"))
+                print("")
+
+                break
+        except Exception as e:
+            print(colored(f"Error: {e}", "red"))
+            break
 
 except Exception as e:
     print(colored(f"Error: {e}", "red"))
