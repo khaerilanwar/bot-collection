@@ -6,39 +6,40 @@ from utils import banner
 from termcolor import colored
 from datetime import datetime
 
-banner("Bot Facebook", "light_red")
+banner("Facebook", "light_red")
 
 today = datetime.now()
-print(colored(today.strftime('%A, %d %B %Y'), "light_green").center(80))
-print(74 * "-")
+print(colored(today.strftime('%A, %d %B %Y'), "light_green").center(62))
+print(53 * "-")
 
 # About Author
-print(colored("Author\t\t: Khaeril Anwar", "light_blue"))
-print(colored("Telegram\t: https://t.me/khaerilanwr", "light_blue"))
-print(colored("Github\t\t: https://github.com/khaerilanwar", "light_blue"))
-print(colored("Youtube\t\t: https://www.youtube.com/@khaerilanwarr", "light_blue"))
-print(74 * "-")
+print(colored("Author\t  : Khaeril Anwar", "light_blue"))
+print(colored("Telegram  : https://t.me/khaerilanwr", "light_blue"))
+print(colored("Github\t  : https://github.com/khaerilanwar", "light_blue"))
+print(colored("Youtube\t  : https://www.youtube.com/@khaerilanwarr", "light_blue"))
+print(53 * "-")
 
 # Menerima inputan data
-print(colored("Isi Data Berikut!", "light_yellow").center(80))
-email = input(colored("Email Facebook\t\t: ", "light_yellow"))
-password = input(colored("Kata Sandi Facebook\t: ", "light_yellow"))
-link_group = input(colored("ID Grup Facebook\t: ", "light_yellow"))
-nama_admin = input(colored("ID Admin Grup\t\t: ", "light_yellow"))
+print(colored("Isi Data Berikut!", "light_yellow").center(62))
+email = input(colored("Email Facebook\t     : ", "light_yellow"))
+password = input(colored("Kata Sandi Facebook  : ", "light_yellow"))
+id_grup = input(colored("ID Grup Facebook     : ", "light_yellow"))
+id_admin = input(colored("ID Admin Grup\t     : ", "light_yellow"))
+komentar = input(colored("Komentar\t     : ", "light_yellow"))
 
-import sys
-import time
+# import sys
+# import time
 
-# Karakter spinner
-spinner = ['|', '/', '-', '\\']
+# # Karakter spinner
+# spinner = ['|', '/', '-', '\\']
 
-# Simulasi proses dengan spinner
-for _ in range(20):
-    for char in spinner:
-        sys.stdout.write(f'\r{char} Loading...')
-        sys.stdout.flush()
-        time.sleep(0.1)
-    print(_)
+# # Simulasi proses dengan spinner
+# for _ in range(20):
+#     for char in spinner:
+#         sys.stdout.write(f'\r{char} Loading...')
+#         sys.stdout.flush()
+#         time.sleep(0.1)
+#     print(_)
 
-print("\nDone!")
-print(74 * "-")
+# print("\nDone!")
+# print(56 * "-")
