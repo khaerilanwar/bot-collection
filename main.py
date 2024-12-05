@@ -117,7 +117,6 @@ try:
             print(colored(f"Error: {e}", "red"))
             break
 
+    driver.quit()
 except Exception as e:
     print(colored(f"Error: {e}", "red"))
-
-driver.quit()
