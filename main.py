@@ -74,7 +74,7 @@ try:
                 if isi_post_terakhir == isi_post_terbaru:
                     driver.refresh()
                     print(colored("-- Refresh", "light_cyan"))
-                    WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, '.x1yztbdb.x1n2onr6.xh8yej3.x1ja2u2z')))
+                    # WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, '.x1yztbdb.x1n2onr6.xh8yej3.x1ja2u2z')))
                 else:
                     WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, 'div[aria-label="Beri komentar"][role="button"]'))).click()
                     
